@@ -2,6 +2,17 @@ provider "aws" {
     region = "us-east-2"
 }
 
+data "aws_vpc" "default" {
+    default = true
+}
+
+data "aws_subnets" "default" {
+    filter {
+     name = "vpc-id"
+     values = [data.aws_vpc.default.id] 
+    }
+}
+
 variable "server_port" {
     description = "The port the server will use for http requests"
     type = number
@@ -17,6 +28,23 @@ resource "aws_launch_configuration" "example" {
                 echo "Hello World" > index.html
                 nohup busybox httpd -f -p ${var.server_port} &
                 EOF
+    # Required when using a launch configuration with an autoscaling group
+    lifecycle {
+      create_before_destroy = true
+    }
+}
+
+resource "aws_autoscaling_group" "example" {
+    launch_configuration = aws_launch_configuration.example.name
+    vpc_zone_identifier = data.aws_subnets.default.ids
+    min_size = 2
+    maxmax_size = 10
+
+    tag {
+        key = "Name"
+        value = "terraform-asg-example"
+        propagate_at_launch = true
+    }  
 }
 
 resource "aws_security_group" "instance" {
