@@ -2,6 +2,18 @@ provider "aws" {
     region = "us-east-2"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "terraform-state-file-storage-sohan"
+    key  = "stages/services/webserver-cluster/terraform.tfstate"
+    region = "us-east-2"
+
+    dynamodb_table = "terraform-state-file-storage-sohan-locks"
+    encrypt = true
+  }
+
+}
+
 data "aws_vpc" "default" {
     default = true
 }
@@ -13,11 +25,6 @@ data "aws_subnets" "default" {
     }
 }
 
-variable "server_port" {
-    description = "The port the server will use for http requests"
-    type = number
-    default = 8080 
-}
 resource "aws_launch_configuration" "example" {
     image_id = "ami-0fb653ca2d3203ac1"
     instance_type = "t2.micro"
@@ -134,8 +141,4 @@ resource "aws_lb_listener_rule" "asg" {
       type = "forward"
       target_group_arn = aws_lb_target_group.asg.arn
     }
-}
-output "public_ip" {
-    value = aws_lb.example.dns_name
-    description = "The domain name of the load balancer"
 }
