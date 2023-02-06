@@ -25,7 +25,7 @@ data "aws_subnets" "default" {
     }
 }
 
-data "terraform_remote_state" "name" {
+data "terraform_remote_state" "db" {
   backend = "s3"
 
   config = {
