@@ -5,7 +5,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "terraform-state-file-storage-sohan"
-    key  = "stage/datastores/mysql/terraform.tfstate"
+    key  = "prod/datastores/mysql/terraform.tfstate"
     region = "us-east-2"
 
     dynamodb_table = "terraform-state-file-storage-sohan-locks"
@@ -15,7 +15,7 @@ terraform {
 }
 
 resource "aws_db_instance" "name" {
-    identifier_prefix = "terraform-up-and-running"
+    identifier_prefix = "prod-terraform-up-and-running"
     engine = "mysql"
     allocated_storage = 10
     instance_class = "db.t2.micro"
