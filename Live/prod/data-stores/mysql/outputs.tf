@@ -8,7 +8,7 @@ output "port" {
     description = "The port the db is listening on"
 }
 
-output "alb_dns_name" {
-    value = module.webserver_cluster.alb_dns_name
-    description = "Doman name of the load balancer"
-}
+# output "alb_dns_name" {
+#     value = module.webserver_cluster.alb_dns_name
+#     description = "Doman name of the load balancer"
+# }
