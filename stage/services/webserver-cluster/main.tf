@@ -2,6 +2,18 @@ provider "aws" {
     region = "us-east-2"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "terraform-state-file-storage-sohan"
+    key  = "stage/services/webserver-cluster/terraform.tfstate"
+    region = "us-east-2"
+
+    dynamodb_table = "terraform-state-file-storage-sohan-locks"
+    encrypt = true
+  }
+
+}
+
 module "webserver_cluster" {
     source = "../../../modules/services/webserver-cluster"
 
