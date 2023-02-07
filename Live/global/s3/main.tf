@@ -2,7 +2,6 @@ provider "aws" {
     region = "us-east-2"
 }
 
-
 terraform {
   backend "s3" {
     bucket = "terraform-state-file-storage-sohan"
@@ -12,7 +11,6 @@ terraform {
     dynamodb_table = "terraform-state-file-storage-sohan-locks"
     encrypt = true
   }
-
 }
 
 resource "aws_s3_bucket" "terraform_state"  {
