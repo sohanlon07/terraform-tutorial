@@ -1,7 +1,3 @@
-provider "aws" {
-    region = "us-east-2"
-}
-
 terraform {
   backend "s3" {
     bucket = "terraform-state-file-storage-sohan"
@@ -25,10 +21,10 @@ module "webserver_cluster" {
     min_size = 2
     max_size = 3
 
-    tags {
-      Owner = "team-foo"
-      ManagedBy = "terraform"
-    }
+    # tags {
+    #   Owner = "team-foo"
+    #   ManagedBy = "terraform"
+    # }
 }
 
 resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
