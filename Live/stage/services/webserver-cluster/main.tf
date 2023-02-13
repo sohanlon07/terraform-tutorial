@@ -24,11 +24,6 @@ module "webserver_cluster" {
     min_size = 2
     max_size = 2
     enable_autoscaling = false
-
-    # custom_tags {
-    #   Owner = "team-foo"
-    #   ManagedBy = "terraform"
-    # }
 }
 
 resource "aws_security_group_rule" "allow_testing_inbound" {
