@@ -17,7 +17,7 @@ module "webserver_cluster" {
     source = "git::https://gitlab.com/sohanlon07/terraform-tutorial-modules.git//modules/services/webserver-cluster?ref=main"
 
     ami = "ami-0fb653ca2d3203ac1"
-    server_text = "New Server Text Stage"
+    server_text = "New Server Text STAGING"
 
     cluster_name = "webservers-stage"
     db_remote_state_bucket = "terraform-state-file-storage-sohan"
@@ -26,5 +26,5 @@ module "webserver_cluster" {
     instance_type = "t2.micro"
     min_size = 1
     max_size = 2
-    enable_autoscaling = false
+    enable_autoscaling = true
 }
