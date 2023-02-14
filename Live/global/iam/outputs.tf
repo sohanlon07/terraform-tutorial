@@ -19,6 +19,14 @@ output "for_directive" {
     value = "%{ for i, name in var.names}(${i})${name}, %{ endfor}" 
 }
 
+output "for_directive_index_if_strip" {
+    value = <<EOF
+%{~ for i, name in var.names ~}
+${name}%{if i < length(var.names) - 1}, %{ endif }
+%{~ endfor ~}
+EOF
+}
+
 output "neo_cloudwatch_policy_arn" {
     value = one(concat(
           aws_iam_user_policy_attachment.neo_cloudwatch_full_access[*].policy_arn,
