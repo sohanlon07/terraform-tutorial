@@ -4,17 +4,17 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "terraform-state-file-storage-sohan"
+    bucket = "terraform-state-file-storage-sohan-gm"
     key  = "global/s3/terraform.tfstate"
     region = "us-east-2"
 
-    dynamodb_table = "terraform-state-file-storage-sohan-locks"
+    dynamodb_table = "terraform-state-file-storage-sohan-locks-gm"
     encrypt = true
   }
 }
 
 resource "aws_s3_bucket" "terraform_state"  {
-    bucket = "terraform-state-file-storage-sohan"
+    bucket = "terraform-state-file-storage-sohan-gm"
 
     # Prevent accidental deletion
     lifecycle {
@@ -51,7 +51,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 }
 
 resource "aws_dynamodb_table" "terraform_locks" {
-    name = "terraform-state-file-storage-sohan-locks"  
+    name = "terraform-state-file-storage-sohan-locks-gm"  
     billing_mode = "PAY_PER_REQUEST"
     hash_key = "LockID"
 

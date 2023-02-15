@@ -4,11 +4,11 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "terraform-state-file-storage-sohan"
+    bucket = "terraform-state-file-storage-sohan-gm"
     key  = "stage/services/webserver-cluster/terraform.tfstate"
     region = "us-east-2"
 
-    dynamodb_table = "terraform-state-file-storage-sohan-locks"
+    dynamodb_table = "terraform-state-file-storage-sohan-locks-gm"
     encrypt = true
   }
 }
