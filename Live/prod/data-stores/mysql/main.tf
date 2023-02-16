@@ -2,13 +2,13 @@ provider "aws" {
   region = "us-east-2"
   alias = "primary"
 
-  # #Tags to applly to all reosurces by default
-  # default_tags {
-  #   tags = {
-  #     Owner = "team-sohan"
-  #     ManagedBy = "Terraform"
-  #   }
-  # }
+  #Tags to applly to all reosurces by default
+  default_tags {
+    tags = {
+      Owner = "team-sohan"
+      ManagedBy = "Terraform"
+    }
+  }
 }
 
 provider "aws" {

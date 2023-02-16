@@ -1,14 +1,14 @@
-output "address" {
-    value = aws_db_instance.name.address
-    description = "Connecto the database at this endpoint"
+output "primary_address" {
+    value = module.mysql_primary_staging.address
+    description = "Connect to the primary database at this endpoint"
 }
 
-output "port" {
-    value = aws_db_instance.name.port
-    description = "The port the db is listening on"
+output "primary_port" {
+    value = module.mysql_primary_staging.port
+    description = "The port the primary db is listening on"
 }
 
-# output "alb_dns_name" {
-#     value = module.webserver_cluster.alb_dns_name
-#     description = "Doman name of the load balancer"
-# }
+output "primary_arn" {
+    value = module.mysql_primary_staging.arn
+    description = "ARN of the primary database"
+}

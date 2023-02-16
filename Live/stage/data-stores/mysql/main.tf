@@ -1,5 +1,6 @@
 provider "aws" {
-  region = "us-east-2" 
+  region = "us-east-2"
+  alias = "primary"
 
   #Tags to applly to all reosurces by default
   default_tags {
@@ -21,15 +22,17 @@ terraform {
   }
 }
 
-resource "aws_db_instance" "name" {
-    identifier_prefix = "terraform-up-and-running"
-    engine = "mysql"
-    allocated_storage = 10
-    instance_class = "db.t2.micro"
-    skip_final_snapshot = true
-    db_name = "example_database"
+module "mysql_primary_staging" {
+  source =   "git::https://gitlab.com/sohanlon07/terraform-tutorial-modules.git//modules/data-stores/mysql?ref=main"
 
-    username = var.db_username
-    password = var.db_username
-  
+  providers = {
+    aws = aws.primary
+   }
+
+  db_name = "prod_db"
+  db_username = var.db_username
+  db_password = var.db_password
+
+  #must be enabled to support replication
+  backup_retention_period = 0
 }
