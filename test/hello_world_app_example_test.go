@@ -15,7 +15,7 @@ func TestHelloWorldAppExample(t *testing.T) {
 	t.Parallel()
 
 	opts := &terraform.Options{
-		TerraformDir: "../examples/hello-world-app",
+		TerraformDir: "../live/examples/hello-world-app",
 
 		Vars: map[string]interface{}{
 			"mysql_config": map[string]interface{}{
