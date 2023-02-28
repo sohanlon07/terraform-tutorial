@@ -14,7 +14,7 @@ func TestAlbExample(t *testing.T) {
 	t.Parallel()
 
 	opts := &terraform.Options{
-		TerraformDir: "../examples/alb",
+		TerraformDir: "../live/examples/alb",
 
 		Vars: map[string]interface{}{
 			"alb_name": fmt.Sprintf("test-%s", random.UniqueId()),

@@ -29,7 +29,7 @@ module "mysql_primary_staging" {
     aws = aws.primary
   }
 
-  db_name     = "prod_db"
+  db_name     = var.db_name
   db_username = var.db_username
   db_password = var.db_password
 
