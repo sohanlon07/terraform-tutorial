@@ -1,12 +1,12 @@
 provider "aws" {
-  region = "us-east-2"  
+  region = "us-east-2"
 }
 
 module "hello_world_app" {
   source = "git::https://gitlab.com/sohanlon07/terraform-tutorial-modules.git//modules/services/hello-world-app?ref=v0.0.23"
 
   server_text = "Hello, World"
-  environment = "example"
+  environment = var.environment
 
   mysql_config = var.mysql_config
 

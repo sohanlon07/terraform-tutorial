@@ -3,11 +3,17 @@ variable "mysql_config" {
 
   type = object({
     address = string
-    port = number
+    port    = number
   })
 
   default = {
     address = "mock-my-sql-address"
-    port = 12345
+    port    = 12345
   }
 }
+
+variable "environment" {
+  description = "Name of the environment we're deploying to"
+  type        = string
+  default     = "example"
+} 
