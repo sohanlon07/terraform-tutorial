@@ -8,6 +8,7 @@ import (
 	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/require"
 )
 
 func TestAlbExample(t *testing.T) {
@@ -45,4 +46,26 @@ func TestAlbExample(t *testing.T) {
 		maxRetries,
 		timeBetweenRetries,
 	)
+}
+
+func TestAlbExamplePlan(t *testing.T) {
+	t.Parallel()
+
+	albName := fmt.Sprintf("test-%s", random.UniqueId())
+
+	opts := &terraform.Options{
+		TerraformDir: "../Live/examples/alb",
+		Vars: map[string]interface{}{
+			"alb_name": albName,
+		},
+	}
+
+	planString := terraform.InitAndPlan(t, opts)
+
+	// check plans outputs etc
+	resourceCounts := terraform.GetResourceCount(t, planString)
+	require.Equal(t, 5, resourceCounts.Add)
+	require.Equal(t, 0, resourceCounts.Change)
+	require.Equal(t, 0, resourceCounts.Destroy)
+
 }
