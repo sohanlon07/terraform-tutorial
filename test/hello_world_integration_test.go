@@ -65,6 +65,13 @@ func createHelloOpts(dbOpts *terraform.Options, terraformDir string) *terraform.
 			"db_remote_state_key":    dbOpts.BackendConfig["key"],
 			"environment":            dbOpts.Vars["db_name"],
 		},
+
+		//retry up to 3 times
+		MaxRetries:         3,
+		TimeBetweenRetries: 5 * time.Second,
+		RetryableTerraformErrors: map[string]string{
+			"RequestError: send request failed": "Throttlingissue?",
+		},
 	}
 }
 
