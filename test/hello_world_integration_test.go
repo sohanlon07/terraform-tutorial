@@ -18,7 +18,7 @@ const appDirStage = "../live/stage/services/hello-world-app"
 func TestHelloWorldAppStage(t *testing.T) {
 	t.Parallel()
 
-	//Deploy the MySql DB
+	//Deploy the MySql DB first
 	dbOpts := createDbOpts(t, dbDirStage)
 	defer terraform.Destroy(t, dbOpts)
 	terraform.InitAndApply(t, dbOpts)
